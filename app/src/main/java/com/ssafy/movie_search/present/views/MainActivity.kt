@@ -20,4 +20,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 .commit()
         }
     }
+
+    fun startRecentSearchFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_main, RecentSearchFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 }

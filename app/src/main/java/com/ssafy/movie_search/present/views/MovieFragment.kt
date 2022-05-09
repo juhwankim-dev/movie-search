@@ -39,5 +39,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
                 Movie(null, "제목 : 아이", "출시 : 2021", "평점 : 0.00"),
                 Movie(null, "제목 : 아이", "출시 : 2021", "평점 : 0.00"))
         )
+
+        binding.btnMovieFRecentSearch.setOnClickListener {
+            (context as MainActivity).startRecentSearchFragment()
+        }
     }
 }
