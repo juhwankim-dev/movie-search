@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.ssafy.movie_search.present.views.MovieSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +22,7 @@
             android:hint="제목을 입력하세요"
             android:paddingHorizontal="@dimen/activity_margin_narrow"
             android:inputType="textPersonName"
+            android:text="@={vm.keyword}"
             app:layout_constraintBottom_toBottomOf="@+id/btn_movieF_search"
             app:layout_constraintEnd_toStartOf="@+id/btn_movieF_search"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/activity_margin_narrow"
             android:text="검색"
+            android:onClick="@{()->vm.onSearchClick()}"
             app:layout_constraintEnd_toStartOf="@+id/btn_movieF_recent_search"
             app:layout_constraintTop_toTopOf="parent" />
 
