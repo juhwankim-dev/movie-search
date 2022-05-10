@@ -18,7 +18,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:padding="@dimen/activity_margin_narrow"
-            android:src="@drawable/ic_no_image"
+            tools:src="@drawable/ic_no_image"
+            app:bindImageUrl="@{movie.imageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
