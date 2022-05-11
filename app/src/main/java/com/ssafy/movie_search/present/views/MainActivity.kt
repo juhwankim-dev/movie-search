@@ -30,4 +30,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             .addToBackStack(null)
             .commit()
     }
+
+    fun loadWebView() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_main, WebViewFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 }
