@@ -3,7 +3,9 @@ package com.ssafy.movie_search.present.views
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andback.pocketfridge.present.config.BaseFragment
@@ -19,6 +21,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
 
         initView()
         initViewModel()
+        initEvent()
     }
 
     private fun initView() {
@@ -43,5 +46,14 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
                 movieAdapter.setList(it)
             }
         }
+    }
+
+    private fun initEvent() {
+        movieAdapter.setItemClickListener(object: MovieAdapter.ItemClickListener{
+            override fun onClick(link: String) {
+                setFragmentResult("webLink", bundleOf("webLink" to link))
+                (context as MainActivity).loadWebView()
+            }
+        })
     }
 }

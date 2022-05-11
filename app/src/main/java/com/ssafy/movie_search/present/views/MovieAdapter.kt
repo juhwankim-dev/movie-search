@@ -1,8 +1,6 @@
 package com.ssafy.movie_search.present.views
 
-import android.animation.Animator
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.movie_search.databinding.ItemMovieListBinding
@@ -28,7 +26,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             bindInfo(movieList[position])
 
             itemView.setOnClickListener{
-                itemClickListener.onClick(movieList[position])
+                itemClickListener.onClick(movieList[position].webLink)
             }
         }
     }
@@ -42,7 +40,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     interface ItemClickListener {
-        fun onClick(recipeId: Movie)
+        fun onClick(link: String)
     }
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {
