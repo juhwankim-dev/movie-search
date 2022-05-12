@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             PageSet.RECENT_SERACH -> supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fl_main, RecentSearchFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }
