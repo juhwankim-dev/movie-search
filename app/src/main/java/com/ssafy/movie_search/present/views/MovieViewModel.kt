@@ -3,17 +3,23 @@ package com.ssafy.movie_search.present.views
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ssafy.movie_search.data.model.RecentSearchEntity
 import com.ssafy.movie_search.domain.model.Movie
 import com.ssafy.movie_search.domain.usecase.GetMovieListUseCase
+import com.ssafy.movie_search.domain.usecase.recent_search.WriteRecentSearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieSharedViewModel @Inject constructor(
-    private val getMovieListUseCase: GetMovieListUseCase
+class MovieViewModel @Inject constructor(
+    private val getMovieListUseCase: GetMovieListUseCase,
+    private val writeRecentSearchUseCase: WriteRecentSearchUseCase
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
@@ -44,12 +50,19 @@ class MovieSharedViewModel @Inject constructor(
         )
     }
 
+    fun writeRecentSearch(recentSearchEntity: RecentSearchEntity) {
+        writeRecentSearchUseCase.invoke(recentSearchEntity)
+    }
+
     private fun showError() {
         // TODO: 에러 처리
     }
 
     fun onSearchClick() {
         getMovieList(keyword.value.toString())
+        viewModelScope.launch(Dispatchers.IO) {
+            writeRecentSearch(RecentSearchEntity(keyword.value.toString()))
+        }
     }
 
     override fun onCleared() {
