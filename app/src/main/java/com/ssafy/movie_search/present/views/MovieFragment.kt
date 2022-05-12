@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,5 +66,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
                 mainActivity.onChangeFragement(PageSet.WEB_VIEW)
             }
         })
+
+        setFragmentResultListener("searchedKeyword") { _, bundle ->
+            var searchedKeyword = bundle.getSerializable("searchedKeyword").toString()
+            viewModel.search(searchedKeyword)
+        }
     }
 }

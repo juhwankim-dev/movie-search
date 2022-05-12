@@ -1,7 +1,10 @@
 package com.ssafy.movie_search.present.views
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.andback.pocketfridge.present.config.BaseFragment
 import com.google.android.material.chip.Chip
@@ -34,7 +37,8 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
                         text = "${searchList[i].keyword}"
 
                         setOnClickListener {
-                            showToastMessage("$text")
+                            setFragmentResult("searchedKeyword", bundleOf("searchedKeyword" to text))
+                            mainActivity.onChangeFragement(PageSet.MOVIE)
                         }
                     })
                 }
