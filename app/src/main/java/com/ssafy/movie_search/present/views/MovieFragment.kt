@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.andback.pocketfridge.present.config.BaseFragment
 import com.ssafy.movie_search.R
 import com.ssafy.movie_search.databinding.FragmentMovieBinding
+import com.ssafy.movie_search.present.utils.PageSet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +44,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         }
 
         binding.btnMovieFRecentSearch.setOnClickListener {
-            mainActivity.startRecentSearchFragment()
+            mainActivity.onChangeFragement(PageSet.RECENT_SERACH)
         }
     }
 
@@ -61,7 +62,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
         movieAdapter.setItemClickListener(object: MovieAdapter.ItemClickListener{
             override fun onClick(link: String) {
                 setFragmentResult("webLink", bundleOf("webLink" to link))
-                mainActivity.loadWebView()
+                mainActivity.onChangeFragement(PageSet.WEB_VIEW)
             }
         })
     }

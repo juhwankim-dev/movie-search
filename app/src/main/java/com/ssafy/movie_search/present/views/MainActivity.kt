@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.andback.pocketfridge.present.config.BaseActivity
 import com.ssafy.movie_search.R
 import com.ssafy.movie_search.databinding.ActivityMainBinding
+import com.ssafy.movie_search.present.utils.PageSet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,19 +24,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    fun startRecentSearchFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fl_main, RecentSearchFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    fun loadWebView() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fl_main, WebViewFragment())
-            .addToBackStack(null)
-            .commit()
+    fun onChangeFragement(p: PageSet) {
+        when (p) {
+            PageSet.MOVIE -> supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_main, MovieFragment())
+                .commit()
+            PageSet.WEB_VIEW -> supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_main, WebViewFragment())
+                .commit()
+            PageSet.RECENT_SERACH -> supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fl_main, RecentSearchFragment())
+                .commit()
+        }
     }
 }
