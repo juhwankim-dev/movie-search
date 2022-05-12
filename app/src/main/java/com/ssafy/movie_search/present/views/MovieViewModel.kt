@@ -32,7 +32,7 @@ class MovieViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     private fun getMovieList(keyword: String) {
-        _isLoading.value = false
+        _isLoading.value = true
         compositeDisposable.add(
             getMovieListUseCase(keyword)
                 .subscribeOn(Schedulers.io())
