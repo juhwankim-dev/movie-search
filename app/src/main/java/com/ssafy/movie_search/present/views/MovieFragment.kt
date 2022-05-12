@@ -56,6 +56,18 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
             movieList.observe(viewLifecycleOwner) {
                 movieAdapter.setList(it)
             }
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.lottieMovieF.apply {
+                    if(it) {
+                        playAnimation()
+                        visibility = View.VISIBLE
+                    } else {
+                        pauseAnimation()
+                        visibility = View.INVISIBLE
+                    }
+                }
+            }
         }
     }
 
