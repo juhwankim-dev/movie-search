@@ -57,6 +57,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(R.layout.fragment_movie
                 movieAdapter.setList(it)
             }
 
+            toastMsg.observe(viewLifecycleOwner) {
+                showToastMessage(it)
+            }
+
             isLoading.observe(viewLifecycleOwner) {
                 binding.lottieMovieF.apply {
                     if(it) {
