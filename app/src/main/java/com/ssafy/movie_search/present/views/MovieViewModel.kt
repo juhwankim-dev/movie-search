@@ -8,6 +8,10 @@ import com.ssafy.movie_search.data.model.RecentSearchEntity
 import com.ssafy.movie_search.domain.model.Movie
 import com.ssafy.movie_search.domain.usecase.GetMovieListUseCase
 import com.ssafy.movie_search.domain.usecase.recent_search.WriteRecentSearchUseCase
+import com.ssafy.movie_search.present.config.SingleLiveEvent
+import com.ssafy.movie_search.present.utils.KeywordChecker
+import com.ssafy.movie_search.present.utils.OutOfLengthException
+import com.ssafy.movie_search.present.utils.SpecialCharException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -30,6 +34,9 @@ class MovieViewModel @Inject constructor(
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _toastMsg = SingleLiveEvent<String>()
+    val toastMsg: LiveData<String> get() = _toastMsg
 
     private fun getMovieList(keyword: String) {
         _isLoading.value = true
@@ -59,13 +66,20 @@ class MovieViewModel @Inject constructor(
     }
 
     fun onSearchClick() {
-        search(keyword.value.toString())
+        search(keyword.value ?: "")
     }
 
     fun search(keyword: String) {
-        getMovieList(keyword)
-        viewModelScope.launch(Dispatchers.IO) {
-            writeRecentSearch(RecentSearchEntity(keyword))
+        try {
+            KeywordChecker.check(keyword)
+            getMovieList(keyword)
+            viewModelScope.launch(Dispatchers.IO) {
+                writeRecentSearch(RecentSearchEntity(keyword))
+            }
+        } catch (e: OutOfLengthException) {
+            _toastMsg.value = "검색어는 1~20자 이내로 작성해주세요"
+        } catch (e: SpecialCharException) {
+            _toastMsg.value = "특수문자는 포함할 수 없습니다"
         }
     }
 
