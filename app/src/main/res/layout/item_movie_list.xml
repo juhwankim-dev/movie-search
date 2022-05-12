@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.ssafy.movie_search.domain.model.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_movieI_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="@dimen/activity_margin_narrow"
+            tools:src="@drawable/ic_no_image"
+            app:bindImageUrl="@{movie.imageUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_movieI_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movie.title}"
+            tools:text="제목 : 아이"
+            app:layout_constraintBottom_toTopOf="@+id/iv_movieI_year"
+            app:layout_constraintStart_toEndOf="@+id/iv_movieI_thumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_movieI_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movie.year}"
+            tools:text="출시 : 2021"
+            app:layout_constraintBottom_toTopOf="@+id/iv_movieI_rating"
+            app:layout_constraintStart_toEndOf="@+id/iv_movieI_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/iv_movieI_title" />
+
+        <TextView
+            android:id="@+id/iv_movieI_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movie.rating}"
+            tools:text="평점 : 2021"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_movieI_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/iv_movieI_year" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
