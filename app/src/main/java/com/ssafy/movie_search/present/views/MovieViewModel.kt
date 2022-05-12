@@ -59,9 +59,13 @@ class MovieViewModel @Inject constructor(
     }
 
     fun onSearchClick() {
-        getMovieList(keyword.value.toString())
+        search(keyword.value.toString())
+    }
+
+    fun search(keyword: String) {
+        getMovieList(keyword)
         viewModelScope.launch(Dispatchers.IO) {
-            writeRecentSearch(RecentSearchEntity(keyword.value.toString()))
+            writeRecentSearch(RecentSearchEntity(keyword))
         }
     }
 
